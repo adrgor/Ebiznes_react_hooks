@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @CrossOrigin
 @RestController
-class Products {
+class ProductController {
 
     @GetMapping("/api/products")
     fun getProducts(): List<Product> {

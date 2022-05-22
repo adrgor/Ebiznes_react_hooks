@@ -25,7 +25,9 @@ const ItemList = () => {
     useEffect(() => {
         const getItems = async () => {
           const itemsFromServer = await fetchItems()
-          setItems(itemsFromServer)
+          if (itemsFromServer != null) {
+            setItems(itemsFromServer)
+          }
         }
     
         getItems()
@@ -33,18 +35,27 @@ const ItemList = () => {
       }, [])
     
       const fetchItems = async () => {
-        const res = await fetch('http://localhost:8080/api/products', {
-          mode: 'cors'
-        })
-        const data = await res.json()
-    
-        return data
+        if(localStorage.getItem("JWT_TOKEN") != undefined) {
+          const authHeader = new Headers();
+          authHeader.append("Authorization", `Bearer ${localStorage.getItem("JWT_TOKEN")}`)
+          const res = await fetch('http://localhost:8080/api/products', {
+          mode: 'cors',
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("JWT_TOKEN")}`
+          }
+          })
+          const data = await res.json()
+      
+          return data
+        }
+        return null
       }
 
     return (
         <>
         <div className="item-list">
             { items.length <= 0 ? <div>No products found</div> : items.map(item => (<Item id={item.id} name={item.name} price={item.price}/>)) }
+            { localStorage.getItem("JWT_TOKEN") == undefined ? <div>You are not logged in</div> : <></>}
         </div>
         {basket.length > 0 && <Link to="/basket"><div style={buttonStyle}>Go to basket ({basket.length})></div></Link>}
         </>
