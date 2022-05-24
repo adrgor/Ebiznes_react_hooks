@@ -19,8 +19,6 @@ function App() {
       const token = url.substring(url.indexOf("token=") + 6)
       localStorage.setItem("JWT_TOKEN", token)
     }
-    
-    return () => {};
   }, []);
 
   const logout = () => {

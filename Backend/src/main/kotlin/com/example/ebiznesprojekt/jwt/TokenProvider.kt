@@ -25,7 +25,6 @@ class TokenProvider(val appProperties: AppProperties) {
         val userPrincipal: UserPrincipal = authentication.principal as UserPrincipal
 
         val now = Date()
-        val expiryDate = Date(now.time.plus(60000))
         val signingKey = SecretKeySpec(
             tokenSecret.toByteArray(),
             SignatureAlgorithm.HS512.jcaName

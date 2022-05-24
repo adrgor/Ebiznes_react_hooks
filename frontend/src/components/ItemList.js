@@ -44,9 +44,7 @@ const ItemList = () => {
             "Authorization": `Bearer ${localStorage.getItem("JWT_TOKEN")}`
           }
           })
-          const data = await res.json()
-      
-          return data
+          return await res.json()      
         }
         return null
       }
