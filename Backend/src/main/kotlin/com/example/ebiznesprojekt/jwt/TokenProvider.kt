@@ -24,7 +24,6 @@ class TokenProvider(val appProperties: AppProperties) {
     fun createToken(authentication: Authentication): String {
         val userPrincipal: UserPrincipal = authentication.principal as UserPrincipal
 
-        val now = Date()
         val signingKey = SecretKeySpec(
             tokenSecret.toByteArray(),
             SignatureAlgorithm.HS512.jcaName
